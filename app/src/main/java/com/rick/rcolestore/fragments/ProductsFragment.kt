@@ -1,10 +1,11 @@
-package com.rick.rcolestore
+package com.rick.rcolestore.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.rick.rcolestore.MainActivity
 import com.rick.rcolestore.databinding.FragmentProductsBinding
 
 class ProductsFragment: Fragment() {
