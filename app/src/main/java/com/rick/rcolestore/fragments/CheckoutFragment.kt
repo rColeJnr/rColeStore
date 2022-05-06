@@ -9,9 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rick.rcolestore.MainActivity
+import com.rick.rcolestore.R
 import com.rick.rcolestore.adapters.CheckoutAdapter
 import com.rick.rcolestore.databinding.CheckoutFragmentBinding
-import com.rick.rcolestore.databinding.FragmentCheckoutBinding
+import com.rick.rcolestore.model.Currency
 import com.rick.rcolestore.model.Product
 import com.rick.rcolestore.viewmodels.StoreViewModel
 
@@ -22,6 +23,9 @@ class CheckoutFragment:Fragment() {
     private val viewModel: StoreViewModel by activityViewModels()
     private lateinit var mActivity: MainActivity
     private lateinit var checkoutAdapter: CheckoutAdapter
+
+    private var amount: Double? = null
+    private var currency: Currency? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,13 +79,29 @@ class CheckoutFragment:Fragment() {
                         checkoutAdapter.products = mutableListOf()
                     }
                 }
-                updateOrderTotal()
+                viewModel.orderTotal.observe(viewLifecycleOwner) {
+                    amount = it
+                    updateOrderTotal()
+                }
+
+                viewModel.currency.observe(viewLifecycleOwner) {
+                    it?.let {
+                        currency = it
+                        if (checkoutAdapter.currency == null || it.symbol != checkoutAdapter.currency?.symbol) {
+                            checkoutAdapter.currency = it
+                            checkoutAdapter.notifyItemRangeChanged(0, checkoutAdapter.itemCount)
+                        }
+                        updateOrderTotal()
+                    }
+                }
             }
         }
     }
 
     private fun updateOrderTotal() {
-        TODO("Not yet implemented")
+        if (currency == null || amount == null) return
+        val total = currency!!.symbol + String.format("%.2f", amount)
+        binding.orderTotal.text = resources.getString(R.string.order_total, total)
     }
 
     fun removeProduct(product: Product) {
