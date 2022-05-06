@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/checkout_fragment.xml" value="0.3411458333333333" />
         <entry key="app/src/main/res/layout/products_fragment.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/menu/currencies_menu.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.2962962962962963" />
