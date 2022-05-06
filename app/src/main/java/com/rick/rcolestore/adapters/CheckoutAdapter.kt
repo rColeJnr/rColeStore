@@ -30,7 +30,7 @@ class CheckoutAdapter(private val activity: MainActivity, private val fragment: 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckoutViewHolder {
         return CheckoutViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.basket_product, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.basket_product, parent, false))
     }
 
     override fun onBindViewHolder(holder: CheckoutViewHolder, position: Int) {
@@ -49,7 +49,7 @@ class CheckoutAdapter(private val activity: MainActivity, private val fragment: 
 
         holder.price.text = activity.resources.getString(
             R.string.product_price,
-            currency.symbol,
+            currency?.symbol,
             String.format("%.2f", price)
         )
         holder.remove.setOnClickListener {
