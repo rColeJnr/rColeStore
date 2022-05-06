@@ -18,7 +18,7 @@ import com.rick.rcolestore.model.Product
 class CheckoutAdapter(private val activity: MainActivity, private val fragment: CheckoutFragment) :
     RecyclerView.Adapter<CheckoutAdapter.CheckoutViewHolder>() {
 
-    var products = listOf<Product>()
+    var products = mutableListOf<Product>()
     var currency: Currency? = null
 
     inner class CheckoutViewHolder(view: View) : RecyclerView.ViewHolder(view) {
