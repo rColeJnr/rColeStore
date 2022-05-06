@@ -40,6 +40,17 @@ class ProductsFragment: Fragment() {
         productsAdapter.products = viewModel.products.value?.toMutableList() ?: mutableListOf()
         productsAdapter.notifyItemRangeInserted(0, productsAdapter.products.size)
 
+        viewModel.currency.observe(viewLifecycleOwner){
+            it?.let {
+                binding.productsRV.visibility = View.VISIBLE
+                binding.loadingProgress.visibility = View.INVISIBLE
+                if (productsAdapter.currency == null || it.symbol != productsAdapter.currency?.symbol){
+                    productsAdapter.currency = it
+                    productsAdapter.notifyItemRangeChanged(0, productsAdapter.itemCount)
+                }
+            }
+        }
+
         return binding.root
     }
 
