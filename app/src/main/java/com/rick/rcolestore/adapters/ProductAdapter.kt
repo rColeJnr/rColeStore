@@ -13,11 +13,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rick.rcolestore.MainActivity
 import com.rick.rcolestore.R
 import com.rick.rcolestore.fragments.ProductsFragment
+import com.rick.rcolestore.model.Currency
 import com.rick.rcolestore.model.Product
 
 class ProductAdapter(private val activity: MainActivity, private val fragment: ProductsFragment) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    var currency: Currency? = null
     var products = mutableListOf<Product>()
 
     inner class ProductViewHolder(view: View) :
@@ -34,6 +36,14 @@ class ProductAdapter(private val activity: MainActivity, private val fragment: P
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val current = products[position]
+        val price = if (currency?.exchangeRate == null) current.price
+        else current.price * currency?.exchangeRate!!
+
+        holder.productPrice.text = activity.resources.getString(
+            R.string.product_price,
+            currency?.symbol,
+            String.format("%.2f", price)
+        )
 
         Glide.with(activity)
             .load(current.image)

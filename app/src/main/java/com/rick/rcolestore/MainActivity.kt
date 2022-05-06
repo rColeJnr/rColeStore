@@ -2,6 +2,8 @@ package com.rick.rcolestore
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +27,26 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         getCurrencyData()
         storeViewModel.products.value = items
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.currencies_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (exchangeData == null){
+            Toast.makeText(this@MainActivity, resources.getString(R.string.exchange_data_unavailable), Toast.LENGTH_SHORT).show()
+            getCurrencyData()
+        } else {
+            when (item.itemId) {
+                //TODO: configure each currency exchange menue
+                R.id.currency_metical -> setCurrency("MZN")
+                R.id.currency_ruble -> setCurrency("RUB")
+                R.id.currency_usd -> setCurrency("USD")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getCurrencyData(): JSONObject? {

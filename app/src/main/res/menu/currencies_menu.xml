@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/select_currency">
+        <menu>
+            <item
+                android:id="@+id/currency_metical"
+                android:title="@string/currency_mzn"/>
+
+            <item
+                android:id="@+id/currency_usd"
+                android:title="@string/currency_usd"/>
+
+            <item
+                android:id="@+id/currency_ruble"
+                android:title="@string/currency_ruble"/>
+
+        </menu>
+    </item>
+</menu>
