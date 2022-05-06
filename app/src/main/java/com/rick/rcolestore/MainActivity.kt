@@ -101,7 +101,7 @@ val strawberries = Product(
 )
 val items = listOf(broccoli, carrots, strawberries)
 
-private val defCurrency = "GBP"
+private const val defCurrency = "GBP"
 private var exchangeData: JSONObject? = null
 private var selectedCurrency: Currency? = null
 private lateinit var sharedPreferences: SharedPreferences

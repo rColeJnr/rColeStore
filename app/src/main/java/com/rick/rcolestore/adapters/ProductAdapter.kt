@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rick.rcolestore.MainActivity
 import com.rick.rcolestore.R
 import com.rick.rcolestore.fragments.ProductsFragment
@@ -36,6 +37,9 @@ class ProductAdapter(private val activity: MainActivity, private val fragment: P
 
         Glide.with(activity)
             .load(current.image)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .centerCrop()
+            .override(600)
             .into(holder.productImage)
 
         holder.productName.text = current.name
