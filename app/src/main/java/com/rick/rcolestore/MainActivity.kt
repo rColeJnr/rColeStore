@@ -103,6 +103,10 @@ class MainActivity : AppCompatActivity() {
         storeViewModel.currency.value = currency
         storeViewModel.calculateOrderTotal()
     }
+
+    companion object {
+        private const val TOKEN_KEY = "sandbox_9q2qnfs5_bfdn58cf57pkx8nf"
+    }
 }
 
 
