@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import com.braintreepayments.api.BraintreeClient
+import com.braintreepayments.api.PayPalClient
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.TextHttpResponseHandler
+import com.rick.rcolestore.databinding.ActivityMainBinding
 import com.rick.rcolestore.model.Currency
 import com.rick.rcolestore.model.Product
 import com.rick.rcolestore.viewmodels.StoreViewModel
@@ -19,14 +22,22 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     private val storeViewModel: StoreViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var braintreeClient: BraintreeClient
+    private lateinit var paypalClient: PayPalClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         getCurrencyData()
         storeViewModel.products.value = items
+
+        braintreeClient = BraintreeClient(this, TOKEN_KEY)
+        paypalClient = PayPalClient(braintreeClient)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,6 +113,13 @@ class MainActivity : AppCompatActivity() {
         selectedCurrency = currency
         storeViewModel.currency.value = currency
         storeViewModel.calculateOrderTotal()
+    }
+
+    private fun getClientToken() {
+    }
+
+    fun iniatePayment() {
+        if (storeViewModel.orderTotal.value == 0.00) return
     }
 
     companion object {

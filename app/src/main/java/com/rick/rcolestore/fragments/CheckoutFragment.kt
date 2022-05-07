@@ -40,6 +40,10 @@ class CheckoutFragment:Fragment() {
         binding.cartRV.itemAnimator = DefaultItemAnimator()
         binding.cartRV.adapter = checkoutAdapter
 
+        binding.payButton.setOnClickListener{
+            mActivity.iniatePayment()
+        }
+
         return binding.root
     }
 
